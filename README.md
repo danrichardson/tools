@@ -7,21 +7,30 @@ Personal utilities and scripts for Windows productivity.
 
 ## autohotkey/
 
-AutoHotkey v2 scripts for keyboard remapping, virtual desktop navigation, and input shortcuts on Windows.
+**ShortDanCuts** — a single-exe Windows productivity tool (AutoHotkey v2). Download `ShortDanCuts.exe` from [Releases](../../releases) and run it — no install needed.
 
-- **All-Funcs.ahk** — The kitchen-sink script. Combines all features into one launcher:
-  - **CapsLock** cycles forward through virtual desktops (wraps around); **Shift+CapsLock** cycles backward
-  - **Alt+CapsLock** toggles actual CapsLock on/off
-  - **Double-tap Shift** or **double-tap middle mouse button** triggers Windows voice dictation (`Win+H`)
-  - **Mouse to top edge** of screen for 20ms sends F11 (fullscreen toggle — great for browsers)
+### Features
 
-- **CapsSwitch-ShiftSpeaks.ahk** — Standalone version of the desktop-cycling + voice-dictation features (no fullscreen toggle). Same CapsLock/Shift+CapsLock desktop switching and double-tap Shift/middle-mouse dictation.
+All features can be toggled on/off via a config popup. Settings persist across restarts.
 
-- **CapsToSwitch.ahk** — Minimal CapsLock desktop switcher using `VirtualDesktopAccessor.dll` for direct desktop queries. CapsLock cycles forward through desktops; wraps to first when at the last.
+| Shortcut | Action |
+|---|---|
+| **CapsLock** | Cycle forward through virtual desktops (wraps around) |
+| **Shift+CapsLock** | Cycle backward through virtual desktops |
+| **Alt+CapsLock** | Toggle actual CapsLock on/off |
+| **Double-tap Shift** | Windows voice dictation (`Win+H`) |
+| **Mouse to top edge** | Hover ~2px from top for 20ms to send F11 (fullscreen toggle) |
+| **Ctrl+Shift+Alt+F12** | Open the configuration popup |
 
-- **ToggleFullScreen.ahk** — Standalone mouse-to-top-edge fullscreen toggle. Hover the mouse at the top of the screen (~2px) for 20ms and it sends F11.
+- First run opens the config popup automatically
+- "Run at Windows startup" checkbox creates/removes a Start Menu shortcut
+- Desktop switching uses [VirtualDesktopAccessor.dll](https://github.com/Ciantic/VirtualDesktopAccessor) for accurate desktop tracking (bundled inside the exe)
 
-- **VirtualDesktopAccessor.dll** — Third-party DLL used by `CapsToSwitch.ahk` to query the Windows virtual desktop API directly.
+### Source files
+
+- **ShortDanCuts.ahk** — Source script
+- **VirtualDesktopAccessor.dll** — Third-party DLL for Windows virtual desktop API (bundled into exe at compile time)
+- **build.bat** — Double-click to recompile the `.ahk` into a standalone `.exe`
 
 ## docs/
 
