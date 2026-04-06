@@ -6,8 +6,8 @@ Persistent
 ConfigFile := A_ScriptDir "\ShortDanCuts.ini"
 FirstRun := !FileExist(ConfigFile)
 
-; Extract bundled DLL next to exe on first run (skip when running as .ahk)
-if A_IsCompiled
+; Extract bundled DLL next to exe on first run
+if A_IsCompiled && !FileExist(A_ScriptDir "\VirtualDesktopAccessor.dll")
     FileInstall("VirtualDesktopAccessor.dll", A_ScriptDir "\VirtualDesktopAccessor.dll", 0)
 
 ; === VIRTUAL DESKTOP ACCESSOR DLL ===
