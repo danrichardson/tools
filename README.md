@@ -37,3 +37,9 @@ All features can be toggled on/off via a config popup. Settings persist across r
 _(Empty — reserved for documentation.)_
 
 <!-- END TOOLS -->
+
+## Attribution
+
+- [VirtualDesktopAccessor](https://github.com/Ciantic/VirtualDesktopAccessor) by Jari Pennanen — Rust DLL for Windows virtual desktop API access
+- [AutoHotkey v2](https://www.autohotkey.com/) — scripting language and runtime
+- [Ahk2Exe](https://www.autohotkey.com/docs/v2/Scripts.htm#ahk2exe) — compiler for bundling AHK scripts into standalone executables
