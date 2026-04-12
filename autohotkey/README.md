@@ -53,14 +53,15 @@ On first launch, a configuration window opens automatically.
 - "Run at startup" creates a shortcut in the user Startup folder.
 - The config popup can be reopened with `Ctrl+Shift+Alt+F12`.
 
-## Notes for Sub-Repo Use
+## Notes for Local Tool Repo Use
 
-When this folder is managed as its own repo and included in the umbrella repo as
-a submodule:
+This folder can have its own local git repository for focused commit history,
+but it should not have a remote.
 
-1. Commit and push changes in this folder first.
-2. Return to the umbrella repo.
-3. Commit the updated submodule pointer there.
+Workflow:
 
-This keeps tool history local to the tool repo while still rolling changes up
-into the umbrella repo.
+1. Commit your tool changes in this local repo.
+2. Return to the umbrella `tools` repo.
+3. Commit the changed files in `autohotkey/` there.
+
+This keeps local tool history while `tools` remains the only GitHub repo.
