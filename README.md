@@ -7,34 +7,20 @@ Personal utilities and scripts for Windows productivity.
 
 ## autohotkey/
 
-**ShortDanCuts** — a single-exe Windows productivity tool (AutoHotkey v2). Download `ShortDanCuts.exe` from [Releases](../../releases) and run it — no install needed.
-
-### Features
-
-All features can be toggled on/off via a config popup. Settings persist across restarts.
-
-| Shortcut | Action |
-|---|---|
-| **CapsLock** | Cycle forward through virtual desktops (wraps around) |
-| **Shift+CapsLock** | Cycle backward through virtual desktops |
-| **Alt+CapsLock** | Toggle actual CapsLock on/off |
-| **Double-tap Shift** | Windows voice dictation (`Win+H`) |
-| **Mouse to top edge** | Hover ~2px from top for 20ms to send F11 (fullscreen toggle) |
-| **Ctrl+Shift+Alt+F12** | Open the configuration popup |
-
-- First run opens the config popup automatically
-- "Run at Windows startup" checkbox creates/removes a Start Menu shortcut
-- Desktop switching uses [VirtualDesktopAccessor.dll](https://github.com/Ciantic/VirtualDesktopAccessor) for accurate desktop tracking (bundled inside the exe)
-
-### Source files
-
-- **ShortDanCuts.ahk** — Source script
-- **VirtualDesktopAccessor.dll** — Third-party DLL for Windows virtual desktop API (bundled into exe at compile time)
-- **build.bat** — Double-click to recompile the `.ahk` into a standalone `.exe`
+- **README.md** - Detailed docs for this tool, including shortcuts, build steps, and runtime behavior.
+- **ShortDanCuts.ahk** - Main AutoHotkey v2 source for desktop switching, dictation trigger, and config UI.
+- **VirtualDesktopAccessor.dll** - Bundled dependency used by the script for Windows virtual desktop API calls.
+- **build.bat** - Compiles `ShortDanCuts.ahk` into a standalone `ShortDanCuts.exe` using Ahk2Exe.
 
 ## docs/
 
-_(Empty — reserved for documentation.)_
+- **subrepos.md** - Umbrella/sub-repo architecture, migration flow, and roll-up workflow for submodules.
+
+## scripts/
+
+- **README.md** - Quick reference for repo-management scripts and typical usage examples.
+- **convert-folder-to-submodule.ps1** - Migrates an existing folder to its own repo and reconnects it as a git submodule.
+- **rollup-submodule-updates.ps1** - Stages and commits changed submodule pointers in the umbrella repo.
 
 <!-- END TOOLS -->
 
