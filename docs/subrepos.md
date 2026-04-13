@@ -1,75 +1,62 @@
-# Tools Umbrella + Sub-Repo Workflow
+# Tools Umbrella + Local Tool Repos
 
-This repository is the umbrella repo.
-Each top-level tool directory can be promoted into its own git repository and
-tracked here as a submodule.
+This repository is the only GitHub repo.
+Each tool folder can also have its own local git history for focused work.
 
 ## Target Model
 
-- Umbrella repo: tracks docs, shared scripts, and submodule pointers.
-- Tool repos: own source code, releases, build details, and detailed README docs.
-- Roll-up commit: after tool changes are pushed, umbrella repo commits the updated
-  submodule pointer.
+- Umbrella repo (`tools`): the only remote-backed repo that is pushed to GitHub.
+- Tool local repo (for example `autohotkey/.git`): local-only history, no remote.
+- Roll-up commit: commit tool changes in the local tool repo first, then commit
+  the same file changes in the umbrella repo.
 
 This gives you both:
 
-- Independent work and history for each tool
-- A single umbrella repo that references exact versions of all tools
+- Independent local commit history per tool
+- One published repo (`tools`) containing all tool files
 
 ## Day-to-Day Workflow
 
-1. Work inside a tool repo directory.
-2. Commit and push in that tool repo.
-3. In the umbrella repo, stage the tool directory (submodule pointer update).
-4. Commit and push umbrella repo.
+1. Work in a tool folder.
+2. Commit in the tool's local repo.
+3. From the umbrella repo root, stage that folder.
+4. Commit and push to `tools`.
 
-## Converting an Existing Folder to a Submodule Repo
+## Initialize a Local Tool Repo
 
-Use the script in `scripts/convert-folder-to-submodule.ps1`.
-
-Example (PowerShell):
-
-```powershell
-./scripts/convert-folder-to-submodule.ps1 `
-  -ToolPath autohotkey `
-  -RepoUrl https://github.com/danrichardson/autohotkey.git
-```
-
-What it does:
-
-1. Verifies clean umbrella repo working tree
-2. Splits tool history with `git subtree split`
-3. Pushes split history to the tool repo
-4. Removes the folder from umbrella index
-5. Re-adds it as a proper git submodule
-6. Creates migration commits in the umbrella repo
-
-## Rolling Up Submodule Changes
-
-Use `scripts/rollup-submodule-updates.ps1` to commit all changed submodule
-pointers in one command.
+Use `scripts/init-local-tool-repo.ps1`.
 
 Example:
 
 ```powershell
-./scripts/rollup-submodule-updates.ps1 -Message "chore: roll up tool updates"
+./scripts/init-local-tool-repo.ps1 -ToolPath autohotkey
 ```
 
-Optional push:
+What it does:
+
+1. Verifies you are inside the umbrella git repo
+2. Initializes git in the selected tool folder
+3. Creates an initial local commit from current files
+4. Removes any remotes from that tool repo
+
+## Roll Up Tool Changes to Tools Repo
+
+Use `scripts/rollup-tool-folder.ps1`.
+
+Example:
 
 ```powershell
-./scripts/rollup-submodule-updates.ps1 -Message "chore: roll up tool updates" -Push
+./scripts/rollup-tool-folder.ps1 -ToolPath autohotkey
 ```
 
-## Recommended Repo Naming
+Optional custom message and push:
 
-Keep names predictable:
+```powershell
+./scripts/rollup-tool-folder.ps1 -ToolPath autohotkey -Message "tools: roll up autohotkey" -Push
+```
 
-- Umbrella: `tools`
-- Tool repos: same as folder name, for example `autohotkey`
+## Important Notes
 
-## Notes
-
-- Submodule URLs are stored in `.gitmodules` in the umbrella repo.
-- If a tool repo is private, ensure your git credentials can access it before
-  adding it as a submodule.
+- The local tool `.git` folder is not committed to the umbrella repo.
+- Cloning `tools` on another machine does not include local tool history.
+- To recreate a local tool repo on another machine, run the init script again.

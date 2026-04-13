@@ -14,13 +14,13 @@ Personal utilities and scripts for Windows productivity.
 
 ## docs/
 
-- **subrepos.md** - Umbrella/sub-repo architecture, migration flow, and roll-up workflow for submodules.
+- **subrepos.md** - Umbrella plus local-tool-repo workflow where only tools is pushed to GitHub.
 
 ## scripts/
 
 - **README.md** - Quick reference for repo-management scripts and typical usage examples.
-- **convert-folder-to-submodule.ps1** - Migrates an existing folder to its own repo and reconnects it as a git submodule.
-- **rollup-submodule-updates.ps1** - Stages and commits changed submodule pointers in the umbrella repo.
+- **init-local-tool-repo.ps1** - Initializes a local-only git repo inside a tool folder with no remotes.
+- **rollup-tool-folder.ps1** - Stages and commits a tool folder into the umbrella tools repo.
 
 <!-- END TOOLS -->
 
