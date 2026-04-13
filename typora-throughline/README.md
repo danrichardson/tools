@@ -69,7 +69,7 @@ npx vsce package
 2. Install locally:
 
 ```bash
-code --install-extension open-in-typora-0.0.1.vsix
+code --install-extension open-in-typora-1.0.0.vsix
 ```
 
 ## Quick QA Matrix
