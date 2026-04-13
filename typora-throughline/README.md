@@ -11,6 +11,24 @@ Right-click files or folders in the VS Code explorer to open them in Typora. Sup
 - Status bar button for opening the current workspace in Typora.
 - Command palette workflows for opening current file, current workspace folder, or manually chosen paths.
 
+## Screenshots
+
+This screenshot shows the Explorer context menu entry on a markdown file.
+
+![Explorer context menu with Open in Typora command](https://raw.githubusercontent.com/danrichardson/tools/main/typora-throughline/resources/open-doc-in-typora.png)
+
+This screenshot shows the editor tab context menu entry for opening the active document in Typora.
+
+![Editor tab context menu with Open in Typora command](https://raw.githubusercontent.com/danrichardson/tools/main/typora-throughline/resources/open-opened-doc-in-typora.png)
+
+This screenshot shows the status bar button used to open the workspace in Typora.
+
+![Status bar Typora button](https://raw.githubusercontent.com/danrichardson/tools/main/typora-throughline/resources/open-project-bottom.png)
+
+This screenshot shows the Explorer view title button used to open the workspace in Typora.
+
+![Explorer title bar Typora button](https://raw.githubusercontent.com/danrichardson/tools/main/typora-throughline/resources/open-project-top.png)
+
 ## Commands
 
 - `Typora: Open in Typora`
@@ -69,7 +87,7 @@ npx vsce package
 2. Install locally:
 
 ```bash
-code --install-extension open-in-typora-1.0.0.vsix
+code --install-extension open-in-typora-1.0.1.vsix
 ```
 
 ## Quick QA Matrix

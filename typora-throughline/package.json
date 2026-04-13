@@ -3,7 +3,7 @@
   "displayName": "Open in Typora by Throughline",
   "publisher": "throughlinetech-tools",
   "description": "Right-click files or folders in the VS Code explorer to open them in Typora. Supports multi-select.",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "license": "MIT",
   "repository": "https://github.com/danrichardson/tools/tree/main/typora-throughline",
   "engines": {

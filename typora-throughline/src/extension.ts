@@ -16,7 +16,6 @@ const CONFIG_EXECUTABLE_PATH_MACOS = 'executablePathMacOS';
 const CONFIG_EXECUTABLE_PATH_LINUX = 'executablePathLinux';
 const GLOBAL_STATE_SETTINGS_SHOWN = 'openInTypora.didShowSettingsOnFirstInstallV2';
 const GLOBAL_STATE_SETTINGS_INSTALL_MARKER = 'openInTypora.settingsInstallMarkerV1';
-const SETTINGS_QUERY = '@ext:throughline.open-in-typora openInTypora';
 const SETTINGS_OPEN_DELAY_MS = 1500;
 const EXECUTABLE_CONFIG_KEYS = [
   CONFIG_EXECUTABLE_PATH,
@@ -46,15 +45,16 @@ let isNormalizingExecutablePathSettings = false;
 
 export async function activate(context: vscode.ExtensionContext): Promise<void> {
   const outputChannel = vscode.window.createOutputChannel('Open in Typora');
+  const settingsQuery = getSettingsQuery(context.extension.id);
   context.subscriptions.push(outputChannel);
 
   context.subscriptions.push(
     vscode.commands.registerCommand(COMMAND_OPEN_SETTINGS, async () => {
-      await openExtensionSettings(outputChannel);
+      await openExtensionSettings(outputChannel, settingsQuery);
     })
   );
 
-  await maybeOpenSettingsOnFirstInstall(context, outputChannel);
+  await maybeOpenSettingsOnFirstInstall(context, outputChannel, settingsQuery);
 
   const statusBarItem = vscode.window.createStatusBarItem(vscode.StatusBarAlignment.Right, 100);
   statusBarItem.text = '$(book) Typora';
@@ -720,7 +720,8 @@ function shouldShowStatusBarItem(): boolean {
 
 async function maybeOpenSettingsOnFirstInstall(
   context: vscode.ExtensionContext,
-  outputChannel: vscode.OutputChannel
+  outputChannel: vscode.OutputChannel,
+  settingsQuery: string
 ): Promise<void> {
   const currentInstallMarker = getCurrentInstallMarker(context, outputChannel);
   const lastInstallMarker = context.globalState.get<string>(GLOBAL_STATE_SETTINGS_INSTALL_MARKER);
@@ -730,7 +731,7 @@ async function maybeOpenSettingsOnFirstInstall(
   }
 
   setTimeout(() => {
-    void openExtensionSettings(outputChannel).then(async (didOpen) => {
+    void openExtensionSettings(outputChannel, settingsQuery).then(async (didOpen) => {
       if (didOpen) {
         await context.globalState.update(
           GLOBAL_STATE_SETTINGS_INSTALL_MARKER,
@@ -758,9 +759,16 @@ function getCurrentInstallMarker(
   }
 }
 
-async function openExtensionSettings(outputChannel: vscode.OutputChannel): Promise<boolean> {
+function getSettingsQuery(extensionId: string): string {
+  return `@ext:${extensionId} ${CONFIG_SECTION}`;
+}
+
+async function openExtensionSettings(
+  outputChannel: vscode.OutputChannel,
+  settingsQuery: string
+): Promise<boolean> {
   try {
-    await vscode.commands.executeCommand('workbench.action.openSettings', SETTINGS_QUERY);
+    await vscode.commands.executeCommand('workbench.action.openSettings', settingsQuery);
     return true;
   } catch (error) {
     outputChannel.appendLine('Failed to open Open in Typora settings.');
@@ -775,7 +783,7 @@ async function openExtensionSettings(outputChannel: vscode.OutputChannel): Promi
 
     if (selectedAction === openAction) {
       try {
-        await vscode.commands.executeCommand('workbench.action.openSettings', SETTINGS_QUERY);
+        await vscode.commands.executeCommand('workbench.action.openSettings', settingsQuery);
         return true;
       } catch (retryError) {
         outputChannel.appendLine('Retry to open Open in Typora settings failed.');
