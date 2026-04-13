@@ -1,7 +1,7 @@
 {
   "name": "open-in-typora",
   "displayName": "Open in Typora",
-  "publisher": "throughline",
+  "publisher": "throughlinetech-tools",
   "description": "Right-click files or folders in the VS Code explorer to open them in Typora. Supports multi-select.",
   "version": "1.0.0",
   "license": "MIT",
