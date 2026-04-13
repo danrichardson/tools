@@ -28,6 +28,13 @@ Personal utilities and scripts for Windows productivity.
 - **init-local-tool-repo.ps1** - Initializes a local-only git repo inside a tool folder with no remotes.
 - **rollup-tool-folder.ps1** - Stages and commits a tool folder into the umbrella tools repo.
 
+## typora-throughline/
+
+- **README.md** - Tool-level documentation for the Open in Typora VS Code extension and setup steps.
+- **package.json** - Extension manifest defining commands, menus, settings, and build scripts.
+- **src/extension.ts** - Core implementation for opening selected files/folders/workspaces in Typora.
+- **docs/** - Specs and icon assets for behavior requirements and extension packaging.
+
 <!-- END TOOLS -->
 
 ## Attribution

@@ -1,0 +1,148 @@
+{
+  "name": "open-in-typora",
+  "displayName": "Open in Typora",
+  "publisher": "throughline",
+  "description": "Right-click files or folders in the VS Code explorer to open them in Typora. Supports multi-select.",
+  "version": "0.0.1",
+  "license": "MIT",
+  "engines": {
+    "vscode": "^1.85.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [
+    "onStartupFinished"
+  ],
+  "main": "./out/extension.js",
+  "icon": "resources/icon.png",
+  "contributes": {
+    "commands": [
+      {
+        "command": "openInTypora.open",
+        "title": "Open in Typora",
+        "category": "Typora"
+      },
+      {
+        "command": "openInTypora.openWorkspace",
+        "title": "Typora: Open Workspace in Typora",
+        "shortTitle": "Open workspace in Typora",
+        "icon": "$(book)"
+      },
+      {
+        "command": "openInTypora.openSettings",
+        "title": "Open Open in Typora Settings",
+        "category": "Typora"
+      }
+    ],
+    "menus": {
+      "explorer/context": [
+        {
+          "when": "explorerResourceIsFolder || explorerResourceIsRoot",
+          "command": "openInTypora.open",
+          "group": "navigation@30"
+        },
+        {
+          "when": "!explorerResourceIsFolder && resourceExtname in openInTypora.supportedExtensionsWithDot",
+          "command": "openInTypora.open",
+          "group": "navigation@30"
+        }
+      ],
+      "editor/title/context": [
+        {
+          "when": "resourceExtname in openInTypora.supportedExtensionsWithDot",
+          "command": "openInTypora.open",
+          "group": "navigation"
+        }
+      ],
+      "commandPalette": [
+        {
+          "command": "openInTypora.open"
+        },
+        {
+          "command": "openInTypora.openWorkspace"
+        },
+        {
+          "command": "openInTypora.openSettings"
+        }
+      ],
+      "view/title": [
+        {
+          "command": "openInTypora.openWorkspace",
+          "when": "view == workbench.explorer.fileView && workbenchState != empty",
+          "group": "navigation"
+        },
+        {
+          "command": "openInTypora.openWorkspace",
+          "when": "view == workbench.view.explorer && workbenchState != empty",
+          "group": "navigation"
+        }
+      ]
+    },
+    "configuration": {
+      "title": "Open in Typora",
+      "properties": {
+        "openInTypora.supportedExtensions": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "default": [
+            "md",
+            "markdown",
+            "mdown",
+            "mmd",
+            "text",
+            "txt",
+            "rmarkdown",
+            "mkd",
+            "mdwn",
+            "mdtxt",
+            "rmd",
+            "qmd",
+            "mdtext",
+            "mdx"
+          ],
+          "description": "File extensions (without leading dot) that trigger the 'Open in Typora' menu entry on files."
+        },
+        "openInTypora.showStatusBarItem": {
+          "type": "boolean",
+          "default": true,
+          "description": "Show a 'Typora' button in the status bar that opens the current workspace in Typora."
+        },
+        "openInTypora.executablePath": {
+          "type": "string",
+          "default": "",
+          "description": "Optional Typora executable path or command used for all platforms unless a platform-specific executablePath setting is set."
+        },
+        "openInTypora.executablePathWindows": {
+          "type": "string",
+          "default": "",
+          "description": "Optional Windows-specific Typora executable path or command. Overrides openInTypora.executablePath on Windows."
+        },
+        "openInTypora.executablePathMacOS": {
+          "type": "string",
+          "default": "",
+          "description": "Optional macOS-specific Typora executable path or command. Overrides openInTypora.executablePath on macOS."
+        },
+        "openInTypora.executablePathLinux": {
+          "type": "string",
+          "default": "",
+          "description": "Optional Linux-specific Typora executable path or command. Overrides openInTypora.executablePath on Linux."
+        }
+      }
+    }
+  },
+  "scripts": {
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "vscode:prepublish": "npm run compile"
+  },
+  "devDependencies": {
+    "@types/node": "^20.14.10",
+    "@types/vscode": "^1.85.0",
+    "@vscode/vsce": "^3.2.2",
+    "typescript": "^5.5.4"
+  }
+}
+
