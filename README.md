@@ -12,6 +12,12 @@ Personal utilities and scripts for Windows productivity.
 - **VirtualDesktopAccessor.dll** - Bundled dependency used by the script for Windows virtual desktop API calls.
 - **build.bat** - Compiles `ShortDanCuts.ahk` into a standalone `ShortDanCuts.exe` using Ahk2Exe.
 
+## autokeep-throughline/
+
+- **README.md** - Tool-level overview with build/package steps and local-repo workflow.
+- **copilot-auto-keep/** - VS Code extension project that auto-accepts Copilot Agent edits.
+- **docs/** - Product and experimental specs describing behavior, safety tradeoffs, and command mapping.
+
 ## docs/
 
 - **subrepos.md** - Umbrella plus local-tool-repo workflow where only tools is pushed to GitHub.

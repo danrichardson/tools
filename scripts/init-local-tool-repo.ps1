@@ -35,11 +35,8 @@ if (-not (Test-Path $toolFullPath)) {
     throw "Tool path not found: $ToolPath"
 }
 
-$isRepo = $false
-git -C $toolFullPath rev-parse --is-inside-work-tree >$null 2>$null
-if ($LASTEXITCODE -eq 0) {
-    $isRepo = $true
-}
+$embeddedGitPath = Join-Path $toolFullPath ".git"
+$isRepo = (Test-Path $embeddedGitPath)
 
 if (-not $isRepo) {
     Invoke-Git -WorkingDir $toolFullPath -GitArgs @("init", "-b", $BranchName)
@@ -56,8 +53,12 @@ Invoke-Git -WorkingDir $toolFullPath -GitArgs @("add", "-A")
 
 $changes = git -C $toolFullPath status --porcelain
 $hasCommits = $false
-git -C $toolFullPath rev-parse --verify HEAD >$null 2>$null
-if ($LASTEXITCODE -eq 0) {
+$oldErrorActionPreference = $ErrorActionPreference
+$ErrorActionPreference = "Continue"
+git -C $toolFullPath rev-parse --quiet --verify HEAD >$null 2>$null
+$revParseExit = $LASTEXITCODE
+$ErrorActionPreference = $oldErrorActionPreference
+if ($revParseExit -eq 0) {
     $hasCommits = $true
 }
 

@@ -1,0 +1,62 @@
+{
+  "name": "copilot-auto-keep",
+  "displayName": "Copilot Auto-Keep",
+  "publisher": "throughline",
+  "description": "Automatically accepts GitHub Copilot Agent edits so you never see the Keep/Undo review UI. For people who use git as their undo system.",
+  "version": "0.0.1",
+  "license": "MIT",
+  "engines": {
+    "vscode": "^1.85.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [
+    "onStartupFinished"
+  ],
+  "main": "./out/extension.js",
+  "contributes": {
+    "configuration": {
+      "title": "Copilot Auto-Keep",
+      "properties": {
+        "copilotAutoKeep.enabled": {
+          "type": "boolean",
+          "default": true,
+          "description": "Automatically accept pending Copilot Agent edits."
+        },
+        "copilotAutoKeep.debounceMs": {
+          "type": "number",
+          "default": 300,
+          "minimum": 0,
+          "maximum": 10000,
+          "description": "Milliseconds to wait after the last edit signal before auto-accepting."
+        },
+        "copilotAutoKeep.acceptCommand": {
+          "type": "string",
+          "default": "",
+          "description": "Override the VS Code command ID used to accept all edits. Leave empty to use the default discovered for your VS Code version."
+        }
+      }
+    },
+    "commands": [
+      {
+        "command": "copilotAutoKeep.toggle",
+        "title": "Copilot Auto-Keep: Toggle"
+      },
+      {
+        "command": "copilotAutoKeep.acceptNow",
+        "title": "Copilot Auto-Keep: Accept Pending Edits Now"
+      }
+    ]
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./"
+  },
+  "devDependencies": {
+    "@types/node": "^20.14.15",
+    "@types/vscode": "^1.85.0",
+    "typescript": "^5.5.4"
+  }
+}
